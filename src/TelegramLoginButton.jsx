@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 
 const TelegramLoginButton = () => {
-  useEffect(() => {
-    // Загружаем скрипт Telegram
-    const script = document.createElement("script");
-    script.src = "https://telegram.org/js/telegram-widget.js?22";
-    script.async = true;
-    document.body.appendChild(script);
+//   useEffect(() => {
+//     // Загружаем скрипт Telegram
+//     const script = document.createElement("script");
+//     script.src = "https://telegram.org/js/telegram-widget.js?22";
+//     script.async = true;
+//     document.body.appendChild(script);
 
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+//     return () => {
+//       document.body.removeChild(script);
+//     };
+//   }, []);
 
   const handleTelegramAuth = () => {
     if (!window.Telegram?.Login) {
@@ -20,7 +20,7 @@ const TelegramLoginButton = () => {
     }
 
     window.Telegram.Login.auth(
-      { bot_id: YOUR_BOT_ID, request_access: true },
+      { bot_id: 8299528121, request_access: true },
       function (user) {
         console.log("Telegram user data:", user);
 
