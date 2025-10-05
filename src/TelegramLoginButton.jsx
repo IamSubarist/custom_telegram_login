@@ -21,15 +21,15 @@ const TelegramLoginButton = () => {
 
     window.Telegram.Login.auth(
       { bot_id: 8299528121, request_access: true },
-      function (user) {
-        console.log("Telegram user data:", user);
-
-        // Сохраняем в localStorage
-        localStorage.setItem("telegramUser", JSON.stringify(user));
-
-        // Можно проверить
-        alert("Успешный вход: " + user.first_name);
-      }
+  function (user) {
+    if (!user) {
+      alert("Авторизация не удалась");
+      return;
+    }
+    console.log("Telegram user data:", user);
+    localStorage.setItem("telegramUser", JSON.stringify(user));
+    alert("Успешная авторизация: " + user.first_name);
+  }
     );
   };
 
