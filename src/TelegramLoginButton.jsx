@@ -37,15 +37,20 @@ const TelegramLoginButton = () => {
     <button
       onClick={handleTelegramAuth}
       style={{
-        padding: "10px 20px",
-        background: "#0088cc",
+        display:"flex",
+        alignItems:"center",
+        justifyContent:"center",
+        fontSize: "14px",
+        width:"361px",
+        height:"36px",
+        background: "#3F6BE8",
         color: "white",
         border: "none",
-        borderRadius: "5px",
+        borderRadius: "8px",
         cursor: "pointer",
       }}
     >
-      Войти через Telegram
+      Авторизоваться через Telegram
     </button>
   );
 };
