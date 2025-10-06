@@ -4,27 +4,41 @@ const TelegramMiniAppAuth = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    if (window.Telegram?.WebApp) {
-      const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe;
-      console.log("Telegram init data:", initDataUnsafe);
+    const tg = window.Telegram?.WebApp;
 
-      if (initDataUnsafe?.user) {
-        setUser(initDataUnsafe.user);
+    if (!tg) {
+      console.error("Telegram WebApp SDK не найден");
+      return;
+    }
 
-        // например, сохраняем в localStorage
-        localStorage.setItem("telegramUser", JSON.stringify(initDataUnsafe.user));
-      }
+    tg.ready(); // сообщаем Telegram, что приложение готово
+
+    // Данные пользователя доступны в initDataUnsafe
+    const userData = tg.initDataUnsafe?.user;
+
+    if (userData) {
+      console.log("Авторизованный юзер:", userData);
+      localStorage.setItem("telegramUser", JSON.stringify(userData));
+      setUser(userData);
+    } else {
+      console.warn("Нет данных о пользователе (запусти в Telegram)");
     }
   }, []);
 
-  if (!user) {
-    return <div>Загрузка...</div>;
-  }
-
   return (
-    <div>
-      <h2>Привет, {user.first_name}!</h2>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
+    <div style={{ padding: "20px", fontFamily: "sans-serif" }}>
+      <h2>Telegram Mini App</h2>
+      {user ? (
+        <div>
+          <p>
+            Привет, {user.first_name} {user.last_name || ""} 👋
+          </p>
+          <p>@{user.username}</p>
+          <p>ID: {user.id}</p>
+        </div>
+      ) : (
+        <p>Открой приложение внутри Telegram, чтобы увидеть данные.</p>
+      )}
     </div>
   );
 };
